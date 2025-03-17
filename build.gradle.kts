@@ -1,6 +1,8 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    id("org.springframework.boot") version "3.2.3"
-    id("io.spring.dependency-management") version "1.1.4"
+    id("org.springframework.boot") version "3.2.3" apply false
+    id("io.spring.dependency-management") version "1.1.4" apply false
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"  // Spring 관련 플러그인 추가
     kotlin("plugin.jpa") version "1.9.21"     // JPA 플러그인 추가
@@ -63,5 +65,38 @@ subprojects {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlin:kotlin-test")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+        // QueryDSL (Jakarta 버전)
+        implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+        kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+
+        // JPA 표준 API
+        implementation("jakarta.persistence:jakarta.persistence-api")
+
+        // Spring Boot Configuration Processor (kapt)
+        kapt("org.springframework.boot:spring-boot-configuration-processor")
+    }
+
+    kapt {
+        arguments {
+            arg("querydsl.generated", "build/generated/source/kapt/main")
+        }
+    }
+
+    allOpen {
+        annotation("jakarta.persistence.Entity")
+        annotation("jakarta.persistence.Embeddable")
+        annotation("jakarta.persistence.MappedSuperclass")
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += "-Xjsr305=strict"
+            jvmTarget = "21"
+        }
+    }
+
+    tasks.named<Test>("test") {
+        useJUnitPlatform()
     }
 }
