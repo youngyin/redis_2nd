@@ -47,8 +47,19 @@
     
   - 쿼리는 QueryDSL로 작성하고, DTO Projection을 사용해서 꼭 필요한 필드만 반환하도록 수정
     - [MovieCustomImpl](adapter/src/main/kotlin/yin/adapter/out/persistence/repository/MovieCustomImpl.kt)
+    - [영화 조회](docs/selectMovieApi.md)
+    
   - 요청 파라미터 validation (ex. 제목 사이즈, 잘못된 장르 값 등)
     - 제목 사이즈 : 255 이하
     - 잘못된 장르 값 : Enum으로 받아서 잘못된 값인 경우 오류 발생
+    - TODO : 예외 발생시 메세지를 핸들러에서 처이해야 함. 
     
   - 캐싱 전략
+    - 테스트를 위한 더미 데이터 생성 
+      - 스케줄 더미 데이터를 같이 생성 : DummyDataInitializer.kt
+      ```
+      극장 5개 생성
+      영화 1개당 2~3개의 랜덤 스케줄 생성
+      각 스케줄은 랜덤한 극장에서 생성
+      ```
+
