@@ -16,3 +16,39 @@
     - 이는 2주차의 성능 측정을 위해 설정 된 조건입니다. 
     ```
   - [주요 API 설계](docs/api.md)
+
+## 2주차
+- 1주차 피드백 반영
+  - [멀티모듈 디자인 변경](docs/multi-module2.md)
+  - baseTimeEntity 추가
+  - @Getter 등 data class 에서 필요 없는 어노테이션 제거
+  - Movie.runningTimeMin > 분 단위라는 게 드러나도록 컬럼명 변경
+  
+- [2주차 목표](docs/2nd.md)
+  - 기존 조회 API: 영화 목록(제목, 등급, 개봉일, 이미지, 러닝타임, 장르, 상영관 이름, 상영시간표) 반환
+  - 추가 요구사항: 제목 검색 + 장르 필터
+    - 제목 like 검색,  장르는 List로 받아서 처리
+    
+  ```kotlin
+  @GetMapping
+  fun getMovies(
+      @Validated request: QueryMovieRequest,
+      pageable: Pageable
+  ): ResponseEntity<Page<QueryMovieResponse>> {
+      val command = QueryMovieCommand(
+          title = request.title,
+          genreList = request.genreList,
+          movieStatusList = request.movieStatusList,
+      )
+      val findAllMovies = queryMovieUseCase.findAllMovies(command, pageable)
+      return ResponseEntity.ok().body(findAllMovies)
+  }
+  ```
+    
+  - 쿼리는 QueryDSL로 작성하고, DTO Projection을 사용해서 꼭 필요한 필드만 반환하도록 수정
+    - [MovieCustomImpl](adapter/src/main/kotlin/yin/adapter/out/persistence/repository/MovieCustomImpl.kt)
+  - 요청 파라미터 validation (ex. 제목 사이즈, 잘못된 장르 값 등)
+    - 제목 사이즈 : 255 이하
+    - 잘못된 장르 값 : Enum으로 받아서 잘못된 값인 경우 오류 발생
+    
+  - 캐싱 전략
