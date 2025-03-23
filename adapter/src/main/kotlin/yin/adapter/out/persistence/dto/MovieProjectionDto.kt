@@ -1,10 +1,10 @@
-package yin.application.dto
+package yin.adapter.out.persistence.dto
 
 import yin.domain.Genre
 import yin.domain.MovieStatus
 import java.time.LocalDate
 
-data class QueryMovieResponse(
+data class MovieProjectionDto(
     val id: Long,
     val title: String,
     val genre: Genre,
@@ -12,5 +12,5 @@ data class QueryMovieResponse(
     val releaseDate: LocalDate,
     val runningTime: Int,
     val status: MovieStatus,
-    val schedules: List<QueryScheduleResponse> = listOf(),
+    val imageUrl: String?
 )

@@ -13,7 +13,7 @@ import yin.application.dto.QueryMovieResponse
 import yin.application.port.`in`.QueryMovieUseCase
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/v1/movies")
 class QueryMovieController(
     private val queryMovieUseCase: QueryMovieUseCase
 ) {

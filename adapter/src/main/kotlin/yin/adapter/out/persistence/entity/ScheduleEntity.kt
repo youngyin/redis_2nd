@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "schedules")
-open class ScheduleEntity protected constructor(
+open class ScheduleEntity public constructor(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
     @ManyToOne(fetch = FetchType.LAZY)

@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "theaters")
-open class TheaterEntity protected constructor(
+open class TheaterEntity public constructor(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
     var name: String,
