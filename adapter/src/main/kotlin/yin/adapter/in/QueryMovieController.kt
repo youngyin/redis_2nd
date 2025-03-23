@@ -3,6 +3,7 @@ package yin.adapter.`in`
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -18,7 +19,10 @@ class QueryMovieController(
 ) {
 
     @GetMapping
-    fun getMovies(request: QueryMovieRequest, pageable: Pageable): ResponseEntity<Page<QueryMovieResponse>> {
+    fun getMovies(
+        @Validated request: QueryMovieRequest,
+        pageable: Pageable
+    ): ResponseEntity<Page<QueryMovieResponse>> {
         val command = QueryMovieCommand(
             title = request.title,
             genreList = request.genreList,
