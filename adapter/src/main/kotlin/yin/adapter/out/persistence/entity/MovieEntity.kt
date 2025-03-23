@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 @Entity
 @Table(name = "movies")
-open class MovieEntity protected constructor(
+open class MovieEntity public constructor(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
@@ -18,7 +18,7 @@ open class MovieEntity protected constructor(
     @Column(name = "release_date")
     var releaseDate: LocalDate,
     @Column(name = "running_time")
-    var runningTime: Int,
+    var runningTimeMin: Int,
     @Enumerated(EnumType.STRING)
     var status: MovieStatus
 ) : BaseTimeEntity()

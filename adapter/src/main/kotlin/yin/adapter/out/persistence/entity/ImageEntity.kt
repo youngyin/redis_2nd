@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "images")
-open class ImageEntity protected constructor(
+open class ImageEntity public constructor(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
     @ManyToOne(fetch = FetchType.LAZY)
