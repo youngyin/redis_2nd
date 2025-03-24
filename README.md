@@ -62,4 +62,7 @@
       영화 1개당 2~3개의 랜덤 스케줄 생성
       각 스케줄은 랜덤한 극장에서 생성
       ```
+    - [캐시 설계](docs/cash-design.md)
+      - 영화 목록 캐싱 (Movie List Cache)
+      - 검색 조건별 영화 목록 캐싱 (Filtered Movie List Cache)
 
