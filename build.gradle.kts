@@ -75,6 +75,13 @@ subprojects {
 
         // Spring Boot Configuration Processor (kapt)
         kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+        // mysql
+        runtimeOnly("com.mysql:mysql-connector-j")
+
+        // redis
+        implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
     }
 
     kapt {
