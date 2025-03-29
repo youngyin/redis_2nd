@@ -11,7 +11,7 @@ services:
       - "3306:3306"
     volumes:
       - movie_mysql_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro  # 읽기 전용 마운트
 
   movie_redis:
     image: redis:7.0
