@@ -70,4 +70,5 @@
     - [캐시 동기화 기준](docs/test-cache.md)
   
   ## 3주차
-
+    - [좌석 예약 API 구현](docs/reserve-api.md)
+    - 동시성 제어 (중복 예약 방지)
