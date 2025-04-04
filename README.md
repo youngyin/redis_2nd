@@ -66,9 +66,8 @@
       - 영화 목록 캐싱 (Movie List Cache)
       - 검색 조건별 영화 목록 캐싱 (Filtered Movie List Cache)
     - [Caffeine + Redis + DB 기반의 3단 캐시 구조 설계 및 구현](docs/test-cache.md)
-      - Caffeine(로컬) → Redis(중앙) → DB로 이어지는 3단 캐시 계층 구조
-      - Caffeine은 각 서버 인스턴스 내부에 존재하는 로컬 캐시
-      - Redis는 모든 서버 인스턴스가 공유하는 중앙 캐시
-      - DB는 캐시에 존재하지 않을 경우 최종적으로 조회하는 원본 저장소
+    - [캐시 테스트](docs/K6-test-result.md)
+    - [캐시 동기화 기준](docs/test-cache.md)
   
+  ## 3주차
 
