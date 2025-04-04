@@ -71,4 +71,7 @@
   
   ## 3주차
     - [좌석 예약 API 구현](docs/reserve-api.md)
-    - 동시성 제어 (중복 예약 방지)
+      - [동시성 제어 (중복 예약 방지)](docs/lock-structure.md)
+        - 이해하기 : 분산락의 다양한 방법
+        - 이해하기 : Redisson 분산 락의 동작 원리
+
