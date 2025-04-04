@@ -1,0 +1,39 @@
+
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: k6/movie-test.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 50 max VUs, 1m0s max duration (incl. graceful stop):
+              * default: 50 looping VUs for 30s (gracefulStop: 30s)
+
+
+     ✓ v2 no-condition is 200
+
+     checks.........................: 100.00% 750 out of 750
+     data_received..................: 636 MB  20 MB/s
+     data_sent......................: 83 kB   2.6 kB/s
+     http_req_blocked...............: avg=100.89µs min=1µs    med=4µs     max=2.53ms  p(90)=12µs    p(95)=702.24µs
+     http_req_connecting............: avg=27.18µs  min=0s     med=0s      max=870µs   p(90)=0s      p(95)=331.94µs
+     http_req_duration..............: avg=73.83ms  min=9.5ms  med=16.04ms max=1.35s   p(90)=31.07ms p(95)=578.96ms
+       { expected_response:true }...: avg=73.83ms  min=9.5ms  med=16.04ms max=1.35s   p(90)=31.07ms p(95)=578.96ms
+     http_req_failed................: 0.00%   0 out of 750
+     http_req_receiving.............: avg=15.01ms  min=8.26ms med=13.18ms max=75.04ms p(90)=22.67ms p(95)=24.27ms
+     http_req_sending...............: avg=40.53µs  min=3µs    med=12µs    max=1.81ms  p(90)=36.1µs  p(95)=87.19µs
+     http_req_tls_handshaking.......: avg=0s       min=0s     med=0s      max=0s      p(90)=0s      p(95)=0s
+     http_req_waiting...............: avg=58.78ms  min=861µs  med=2ms     max=1.33s   p(90)=9.56ms  p(95)=569.23ms
+     http_reqs......................: 750     23.77672/s
+     iteration_duration.............: avg=2.07s    min=2s     med=2.01s   max=3.35s   p(90)=2.03s   p(95)=2.58s
+     iterations.....................: 750     23.77672/s
+     vus............................: 33      min=33         max=50
+     vus_max........................: 50      min=50         max=50
+
+
+running (0m31.5s), 00/50 VUs, 750 complete and 0 interrupted iterations
+default ✓ [======================================] 50 VUs  30s

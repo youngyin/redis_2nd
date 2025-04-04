@@ -1,0 +1,38 @@
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: k6/movie-test.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 50 max VUs, 1m0s max duration (incl. graceful stop):
+              * default: 50 looping VUs for 30s (gracefulStop: 30s)
+
+
+     ✓ v1 with-condition is 200
+
+     checks.........................: 100.00% 750 out of 750
+     data_received..................: 542 kB  18 kB/s
+     data_sent......................: 155 kB  5.1 kB/s
+     http_req_blocked...............: avg=132.74µs min=1µs    med=4µs     max=3.23ms   p(90)=14.1µs  p(95)=1.7ms
+     http_req_connecting............: avg=64.73µs  min=0s     med=0s      max=1.26ms   p(90)=0s      p(95)=872.14µs
+     http_req_duration..............: avg=36.5ms   min=7.48ms med=31.82ms max=128.82ms p(90)=58.36ms p(95)=73.89ms
+       { expected_response:true }...: avg=36.5ms   min=7.48ms med=31.82ms max=128.82ms p(90)=58.36ms p(95)=73.89ms
+     http_req_failed................: 0.00%   0 out of 750
+     http_req_receiving.............: avg=86.95µs  min=6µs    med=39µs    max=2.07ms   p(90)=173.1µs p(95)=300.55µs
+     http_req_sending...............: avg=30.54µs  min=2µs    med=10µs    max=5.44ms   p(90)=32µs    p(95)=53µs
+     http_req_tls_handshaking.......: avg=0s       min=0s     med=0s      max=0s       p(90)=0s      p(95)=0s
+     http_req_waiting...............: avg=36.38ms  min=7.46ms med=31.7ms  max=128.78ms p(90)=58.11ms p(95)=73.43ms
+     http_reqs......................: 750     24.498296/s
+     iteration_duration.............: avg=2.03s    min=2s     med=2.03s   max=2.13s    p(90)=2.05s   p(95)=2.07s
+     iterations.....................: 750     24.498296/s
+     vus............................: 50      min=50         max=50
+     vus_max........................: 50      min=50         max=50
+
+
+running (0m30.6s), 00/50 VUs, 750 complete and 0 interrupted iterations
+default ✓ [======================================] 50 VUs  30s
