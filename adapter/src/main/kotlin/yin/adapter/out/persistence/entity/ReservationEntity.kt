@@ -1,10 +1,11 @@
 package yin.adapter.out.persistence.entity
 
 import jakarta.persistence.*
+import yin.domain.ReservationStatus
 
 @Entity
 @Table(name = "reservations")
-open class ReservationEntity protected constructor(
+open class ReservationEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
     @ManyToOne(fetch = FetchType.LAZY)
@@ -16,5 +17,7 @@ open class ReservationEntity protected constructor(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seat_id")
     var seat: SeatEntity,
-    var status: String
+
+    @Enumerated(EnumType.STRING)
+    var status: ReservationStatus,
 ) : BaseTimeEntity()

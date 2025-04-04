@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "seats")
-open class SeatEntity protected constructor(
+open class SeatEntity public constructor(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
     @ManyToOne(fetch = FetchType.LAZY)

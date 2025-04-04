@@ -1,9 +1,9 @@
 package yin.domain
 
 data class Reservation(
-    val id: Long,
+    val id: Long? = null,
     val userId: Long,
     val scheduleId: Long,
     val seatId: Long,
-    val status: String
+    val status: ReservationStatus
 )
