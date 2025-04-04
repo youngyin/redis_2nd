@@ -19,6 +19,17 @@ class ReserveSeatPersistenceAdapter(
 ) : ReserveSeatPort {
 
     /**
+     * Checks if a seat is already reserved for a given schedule.
+     *
+     * @param scheduleId The ID of the schedule.
+     * @param seatId The ID of the seat.
+     * @return True if the seat is reserved, false otherwise.
+     */
+    override fun existsByScheduleIdAndSeatId(scheduleId: Long, seatId: Long): Boolean {
+        return reservationRepository.existsByScheduleIdAndSeatId(scheduleId, seatId)
+    }
+
+    /**
      * Reserves a seat for a given user and schedule.
      *
      * @param reservation The reservation details.

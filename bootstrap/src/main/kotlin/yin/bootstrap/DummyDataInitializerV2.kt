@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j
 import net.datafaker.Faker
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import yin.adapter.out.persistence.entity.*
@@ -14,6 +15,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
+@Profile("lock-test")
 @Slf4j
 @Transactional
 @Component
@@ -24,11 +26,13 @@ class DummyDataInitializerV2(
     private val seatRepository: SeatRepository,
     private val scheduleRepository: ScheduleRepository,
     private val userRepository: UserRepository,
+    private val reservationRepository: ReservationRepository
 ) : ApplicationRunner {
     override fun run(args: ApplicationArguments?) {
         println("DummyDataInitializer: 실행 시작")
 
         // 0. 기존 데이터 삭제
+        reservationRepository.deleteAll()
         scheduleRepository.deleteAll()
         seatRepository.deleteAll()
         imageRepository.deleteAll()

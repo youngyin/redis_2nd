@@ -5,4 +5,5 @@ import yin.adapter.out.persistence.entity.ReservationEntity
 
 interface ReservationRepository : JpaRepository<ReservationEntity, Long> {
     fun findAllByUserId(userId: Long): List<ReservationEntity>
+    fun existsByScheduleIdAndSeatId(scheduleId: Long, seatId: Long): Boolean
 }
