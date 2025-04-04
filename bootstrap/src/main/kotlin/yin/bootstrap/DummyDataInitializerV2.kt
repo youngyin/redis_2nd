@@ -4,45 +4,52 @@ import lombok.extern.slf4j.Slf4j
 import net.datafaker.Faker
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
-import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import yin.adapter.out.persistence.entity.ImageEntity
-import yin.adapter.out.persistence.entity.MovieEntity
-import yin.adapter.out.persistence.entity.ScheduleEntity
-import yin.adapter.out.persistence.entity.TheaterEntity
-import yin.adapter.out.persistence.repository.ImageRepository
-import yin.adapter.out.persistence.repository.MovieRepository
-import yin.adapter.out.persistence.repository.ScheduleRepository
-import yin.adapter.out.persistence.repository.TheaterRepository
+import yin.adapter.out.persistence.entity.*
+import yin.adapter.out.persistence.repository.*
 import yin.domain.Genre
 import yin.domain.MovieStatus
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-@Profile("cache-test")
 @Slf4j
 @Transactional
 @Component
-class DummyDataInitializer(
+class DummyDataInitializerV2(
     private val movieRepository: MovieRepository,
     private val imageRepository: ImageRepository,
     private val theaterRepository: TheaterRepository,
+    private val seatRepository: SeatRepository,
     private val scheduleRepository: ScheduleRepository,
+    private val userRepository: UserRepository,
 ) : ApplicationRunner {
     override fun run(args: ApplicationArguments?) {
         println("DummyDataInitializer: 실행 시작")
 
-        // 1. 모든 기존 데이터 삭제
+        // 0. 기존 데이터 삭제
         scheduleRepository.deleteAll()
+        seatRepository.deleteAll()
         imageRepository.deleteAll()
         movieRepository.deleteAll()
         theaterRepository.deleteAll()
+        userRepository.deleteAll()
         println("기존 데이터 모두 삭제 완료")
 
+        // 1. 사용자 더미 생성
+        (1..10).forEach { i ->
+            userRepository.save(
+                UserEntity(
+                    nickname = "nickname$i",
+                    password = "password$i"
+                )
+            )
+        }
+        println("사용자 더미 10명 생성 완료")
+
         // 2. 극장 데이터 생성
-        (1..10000).forEach {
+        (1..500).forEach {
             theaterRepository.save(
                 TheaterEntity(
                     name = "극장 $it",
@@ -54,11 +61,28 @@ class DummyDataInitializer(
 
         val theaters = theaterRepository.findAll()
 
-        // 3. 랜덤 영화 및 스케줄 1000개 생성
+        // 2-1. 좌석 데이터 생성
+        theaters.forEach { theater ->
+            val rows = listOf("A", "B", "C", "D", "E")
+            rows.forEach { row ->
+                (1..10).forEach { number ->
+                    seatRepository.save(
+                        SeatEntity(
+                            theater = theater,
+                            seatRow = row,
+                            seatNumber = number
+                        )
+                    )
+                }
+            }
+        }
+        println("좌석 더미 생성 완료")
+
+        // 3. 랜덤 영화 및 스케줄 생성
         val faker = Faker()
         val genres = Genre.values()
 
-        repeat(10000) { i ->
+        repeat(500) { i ->
             val movie = MovieEntity(
                 title = faker.book().title(),
                 genre = genres.random(),
