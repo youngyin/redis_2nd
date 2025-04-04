@@ -13,6 +13,7 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	implementation(project(":domain"))
+	implementation(project(":infrastructure"))
 }
 
 tasks.bootJar {

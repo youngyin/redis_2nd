@@ -1,4 +1,4 @@
-package yin.infrastructure
+package yin.infrastructure.config
 
 import com.querydsl.core.types.dsl.PathBuilder
 import com.querydsl.jpa.impl.JPAQueryFactory
