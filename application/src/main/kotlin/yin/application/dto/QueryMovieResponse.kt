@@ -4,6 +4,7 @@ import yin.domain.Genre
 import yin.domain.MovieStatus
 import java.time.LocalDate
 
+
 data class QueryMovieResponse(
     val id: Long,
     val title: String,

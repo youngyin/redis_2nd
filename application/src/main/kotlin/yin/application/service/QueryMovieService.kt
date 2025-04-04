@@ -16,6 +16,9 @@ class QueryMovieService(
     private val movieRepositoryPort: MovieRepositoryPort
 ) : QueryMovieUseCase {
 
+    /**
+     * 영화 목록 조회 (캐시 X)
+     */
     override fun findAllMovies(
         command: QueryMovieCommand,
         pageable: Pageable
@@ -27,7 +30,7 @@ class QueryMovieService(
          * movie : schedule 은 1:N 관계이므로, 따로 조회해서 조립해야 함.
          * 같이 join해서 조립하면 schedule 의 개수만큼 중복된 데이터를 얻을수 있다.
          */
-        val schedules = movieRepositoryPort.findAllSchedulesById(QueryScheduleCommand(movieIds))
+        val schedules = movieRepositoryPort.findSchedulesByMovieIdIn(movieIds)
         val scheduleMap = schedules.groupBy { it.movieId }
 
         return moviesPage.map { movie ->

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository
 import yin.adapter.out.persistence.repository.MovieRepository
 import yin.adapter.out.persistence.repository.ScheduleRepository
 import yin.application.command.QueryMovieCommand
-import yin.application.command.QueryScheduleCommand
 import yin.application.dto.QueryMovieResponse
 import yin.application.dto.QueryScheduleResponse
 import yin.application.port.out.MovieRepositoryPort
@@ -31,15 +30,18 @@ class QueryMovieAdapter(
         }
     }
 
-    override fun findAllSchedulesById(command: QueryScheduleCommand): List<QueryScheduleResponse> {
-        return scheduleRepository.findAllBySchedules(command).map { schedule ->
-            QueryScheduleResponse(
-                id = schedule.id,
-                movieId = schedule.movieId,
-                theaterName = schedule.theaterName,
-                startTime = schedule.startTime(),
-                endTime = schedule.endTime()
-            )
-        }
+    override fun findSchedulesByMovieIdIn(movieIds: List<Long>): List<QueryScheduleResponse> {
+        return movieIds
+            .chunked(200)
+            .flatMap { chunk -> scheduleRepository.findByMovieIdIn(chunk) }
+            .map { schedule ->
+                QueryScheduleResponse(
+                    id = schedule.id,
+                    movieId = schedule.movieId,
+                    theaterName = schedule.theaterName,
+                    startTime = schedule.startTime(),
+                    endTime = schedule.endTime()
+                )
+            }
     }
 }

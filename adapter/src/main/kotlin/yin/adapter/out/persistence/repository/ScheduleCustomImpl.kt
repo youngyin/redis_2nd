@@ -13,7 +13,7 @@ import yin.application.command.QueryScheduleCommand
 class ScheduleCustomImpl(
     private val queryFactory: JPAQueryFactory
 ) : ScheduleCustom {
-    override fun findAllBySchedules(command: QueryScheduleCommand): List<ScheduleProjectionDto> {
+    override fun findByMovieIdIn(movieIds: List<Long>): List<ScheduleProjectionDto> {
         return queryFactory
             .select(
                 Projections.constructor(
@@ -28,7 +28,7 @@ class ScheduleCustomImpl(
             .from(scheduleEntity)
             .leftJoin(scheduleEntity.theater, theaterEntity)
             .leftJoin(scheduleEntity.movie, movieEntity)
-            .where(scheduleEntity.movie.id.`in`(command.movieIds))
+            .where(scheduleEntity.movie.id.`in`(movieIds))
             .fetch()
     }
 }
