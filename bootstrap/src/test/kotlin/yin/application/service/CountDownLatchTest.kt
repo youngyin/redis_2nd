@@ -1,8 +1,6 @@
 package yin.application.service
 
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.groups.Tuple
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
@@ -12,13 +10,16 @@ import yin.application.command.ReserveSeatCommand
 import yin.bootstrap.BootstrapApplication
 import yin.domain.Genre
 import yin.domain.MovieStatus
-import yin.domain.Reservation
+import yin.infrastructure.util.FunctionalTransactionExecutor
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.test.Test
 
-@Transactional
+//@Transactional
 @SpringBootTest(classes = [BootstrapApplication::class])
-class ReserveSeatServiceTest {
+class CountDownLatchTest {
     @Autowired
     lateinit var reserveSeatService: ReserveSeatService
 
@@ -36,6 +37,48 @@ class ReserveSeatServiceTest {
 
     @Autowired
     lateinit var scheduleRepository: ScheduleRepository
+
+    @Autowired
+    lateinit var transactionExecutor: FunctionalTransactionExecutor
+
+    @Test
+    fun `동시에 100명이 예약 시도할 때 하나만 성공`() {
+        val users = (1..100).map { saveUserEntity() }
+        val theater = theaterRepository.save(TheaterEntity(name = "테스트 극장", totalSeats = 100))
+        val seat = seatRepository.save(SeatEntity(theater = theater, seatRow = "A", seatNumber = 1))
+        val movie = saveMovieEntity()
+        val schedule = saveScheduleEntity(movie, theater)
+
+        val commands = users.map {
+            ReserveSeatCommand(it.id!!, schedule.id!!, seat.id!!)
+        }
+
+        val latch = java.util.concurrent.CountDownLatch(1)
+        val successCount = AtomicInteger(0)
+        val executor = Executors.newFixedThreadPool(20)
+
+        val futures = commands.map { command ->
+            executor.submit {
+                latch.await() // 대기하다가
+                try {
+                    transactionExecutor.execute {
+                        reserveSeatService.reserve(command)
+                        successCount.incrementAndGet()
+                    }
+                } catch (e: Exception) {
+                    println("실패한 요청: ${e.message}")
+                }
+            }
+        }
+
+        latch.countDown() // 모든 스레드 출발!
+
+        futures.forEach { it.get() }
+        executor.shutdown()
+
+        println("성공한 예약 수: ${successCount.get()}")
+        assertThat(successCount.get()).isEqualTo(1)
+    }
 
     /**
      * 사용자 정보를 저장합니다.
@@ -71,30 +114,4 @@ class ReserveSeatServiceTest {
             startTime = LocalDateTime.now().plusDays(1)
         )
     )
-
-    @Test
-    fun `예약 성공 테스트`() {
-        // Given
-        val user = saveUserEntity()
-        val movie = saveMovieEntity()
-        val theater = theaterRepository.save(TheaterEntity(name = "테스트 극장"))
-        val schedule = saveScheduleEntity(movie, theater)
-        val seat = seatRepository.save(SeatEntity(seatRow = "A", seatNumber = 1, theater = theater))
-
-        val command = ReserveSeatCommand(
-            userId = user.id,
-            scheduleId = schedule.id,
-            seatId = seat.id
-        )
-
-        // When
-        reserveSeatService.reserve(command)
-
-        // Then
-        val reservations = reserveSeatService.getAllReservations(user.id)
-        assertThat(reservations).hasSize(1)
-            .extracting(Reservation::seatId, Reservation::scheduleId, Reservation::userId)
-            .contains(Tuple.tuple(seat.id, schedule.id, user.id))
-
-    }
 }

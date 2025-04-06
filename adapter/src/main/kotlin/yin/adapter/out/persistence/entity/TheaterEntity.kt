@@ -9,5 +9,5 @@ open class TheaterEntity public constructor(
     var id: Long = 0,
     var name: String,
     @Column(name = "total_seats")
-    var totalSeats: Int
+    var totalSeats: Int = 0,
 ) :BaseTimeEntity()

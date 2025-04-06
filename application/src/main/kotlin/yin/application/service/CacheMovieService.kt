@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import yin.application.command.QueryMovieCommand
 import yin.application.dto.QueryMovieResponse
-import yin.application.helper.PageUtils.toPage
+import yin.infrastructure.util.PageUtils.toPage
 import yin.application.port.`in`.CacheMovieUseCase
 import yin.application.port.out.*
 

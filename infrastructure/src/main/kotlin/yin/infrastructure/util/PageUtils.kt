@@ -1,4 +1,4 @@
-package yin.application.helper
+package yin.infrastructure.util
 
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
