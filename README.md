@@ -74,6 +74,13 @@
       - [동시성 제어 (중복 예약 방지)](docs/lock-structure.md)
         - 이해하기 : 분산락의 다양한 방법
         - 이해하기 : Redisson 분산 락의 동작 원리
+      - [이해하기 : 낙관적 락과 비관적 락, JPA락, Redis락](docs/Pessimistic-Optimistic-Lock.md)
+        - 테스트 : 분산 환경에서 JPA 락을 사용한 동시성 제어
+        ```shell
+        ./gradlew :bootstrap:bootRun --args='--server.port=8081'
+        ./gradlew :bootstrap:bootRun --args='--server.port=8082'
+
+```
       - [invokeAll와 CountDownLatch를 사용한 동시성 제어 테스트](docs/invokeAll_vs_CountDownLatch.md)
 
  ## 4주차
