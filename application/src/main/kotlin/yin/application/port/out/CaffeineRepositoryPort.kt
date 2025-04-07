@@ -1,20 +1,13 @@
 package yin.application.port.out
 
-import yin.application.dto.QueryMovieResponse
-
 interface CaffeineRepositoryPort {
     /**
-     * Caffeine 캐시에서 영화 목록을 조회
-     *
-     * @param cacheKey 캐시 키
-     * @return 영화 목록
+     * Caffeine 캐시에서 조회
      */
-    fun getIfPresent(cacheKey: String): List<QueryMovieResponse>
+    fun <T> getIfPresent(cacheKey: String, clazz: Class<T>): T?
+
     /**
-     * Caffeine 캐시에 영화 목록을 저장
-     *
-     * @param cacheKey 캐시 키
-     * @param content 영화 목록
+     * Caffeine 캐시에 저장
      */
-    fun put(cacheKey: String, content: List<QueryMovieResponse>)
+    fun put(cacheKey: String, value: Any)
 }

@@ -1,4 +1,4 @@
-package yin.adapter.out
+package yin.adapter.out.cache
 
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Service

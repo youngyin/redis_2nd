@@ -1,20 +1,13 @@
 package yin.application.port.out
 
-import yin.application.dto.QueryMovieResponse
-
 interface RedisRepositoryPort {
     /**
-     * Redis에서 영화 목록을 조회한다.
-     *
-     * @param cacheKey 캐시 키
-     * @return 캐시된 영화 목록
+     * Redis에서 데이터를 조회한다.
      */
-    fun getIfPresent(cacheKey: String): List<QueryMovieResponse>
+    fun <T> getIfPresent(key: String, type: Class<T>): T?
+
     /**
-     * Redis에 영화 목록을 캐시한다.
-     *
-     * @param cacheKey 캐시 키
-     * @param content 캐시할 영화 목록
+     * Redis에 데이터를 저장한다.
      */
-    fun put(cacheKey: String, content: List<QueryMovieResponse>)
+    fun put(key: String, value: Any, ttlSeconds: Long = 600)
 }

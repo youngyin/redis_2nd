@@ -4,9 +4,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import yin.adapter.`in`.controller.request.ReserveSeatRequest
 import yin.application.command.ReserveSeatCommand
-import yin.application.port.`in`.ReserveSeatUseCase
 import yin.application.port.`in`.rateLimit.DsRateLimitReserveSeatUseCase
-import yin.application.service.ReservationSeatService
 import yin.domain.Reservation
 
 @RestController

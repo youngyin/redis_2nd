@@ -1,4 +1,4 @@
-package yin.adapter.out.redis
+package yin.adapter.out.cache
 
 import org.redisson.api.RScript
 import org.redisson.api.RedissonClient
