@@ -1,4 +1,4 @@
-package yin.application.port.`in`.Lock
+package yin.application.port.`in`
 
 import yin.application.command.ReserveSeatCommand
 import yin.domain.Reservation

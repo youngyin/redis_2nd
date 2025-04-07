@@ -1,14 +1,15 @@
-package yin.application.service.lock
+package yin.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import yin.application.command.ReserveSeatCommand
-import yin.application.port.`in`.Lock.DsLockReservationUseCase
+import yin.application.port.`in`.DsLockReservationUseCase
 import yin.application.port.out.DistributedLockPort
 import yin.application.port.out.ReserveSeatPort
 import yin.domain.Reservation
 import yin.domain.ReservationStatus
 
+@Deprecated("AOP기반의 분산락 적용")
 @Transactional(readOnly = true)
 @Service
 class DsLockReserveSeatService(

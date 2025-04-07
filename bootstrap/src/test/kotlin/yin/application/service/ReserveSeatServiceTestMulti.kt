@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import yin.adapter.out.persistence.entity.*
 import yin.adapter.out.persistence.repository.*
 import yin.application.command.ReserveSeatCommand
-import yin.application.service.lock.DsLockReserveSeatService
 import yin.bootstrap.BootstrapApplication
 import yin.domain.Genre
 import yin.domain.MovieStatus

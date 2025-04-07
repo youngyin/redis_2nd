@@ -23,7 +23,7 @@ class LocalCachingAspect(
      * - 캐시가 없으면 DB에서 조회 후 캐시 저장
      */
     @Around("@annotation(localCached)")
-    fun cache(joinPoint: ProceedingJoinPoint, localCached: CachedLocal): Any {
+    fun cache(joinPoint: ProceedingJoinPoint, localCached: LocalCached): Any {
         val method = (joinPoint.signature as MethodSignature).method
         val returnType = method.returnType
         val cacheKey = cacheKeyGeneratorPort.generate(joinPoint, localCached.cacheKeyPrefix)

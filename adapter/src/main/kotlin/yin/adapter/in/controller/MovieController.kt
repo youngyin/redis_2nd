@@ -7,8 +7,9 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import yin.adapter.`in`.aop.Cached3Layer
-import yin.adapter.`in`.aop.CachedLocal
+import yin.adapter.`in`.aop.Layer3Cached
+import yin.adapter.`in`.aop.LocalCached
+import yin.adapter.`in`.aop.RateLimited
 import yin.adapter.`in`.controller.request.QueryMovieRequest
 import yin.application.command.QueryMovieCommand
 import yin.application.dto.QueryMovieResponse
@@ -34,7 +35,7 @@ class MovieController(
     /**
      * 영화 목록 조회 (캐시 O)
      */
-    @Cached3Layer(
+    @Layer3Cached(
         cacheKeyPrefix = "movie",
         ttlSeconds = 300,
         syncThreshold = 5  // Redis로 승격할 최소 hit count
@@ -50,12 +51,26 @@ class MovieController(
     /**
      * 영화 목록 조회 (캐시 O)
      */
-    @CachedLocal(
+    @LocalCached(
         cacheKeyPrefix = "movie",
         ttlSeconds = 300,
     )
     @GetMapping("/v3/movies")
     fun getMoviesLocalCache(
+        @Validated request: QueryMovieRequest,
+        pageable: Pageable
+    ): ResponseEntity<Page<QueryMovieResponse>> {
+        return handle(request, pageable)
+    }
+
+    /**
+     * 영화 목록 조회
+     * - RateLimit 적용
+     * - 캐시 X
+     */
+    @RateLimited
+    @GetMapping("/v4/movies")
+    fun getMoviesRateLimited(
         @Validated request: QueryMovieRequest,
         pageable: Pageable
     ): ResponseEntity<Page<QueryMovieResponse>> {

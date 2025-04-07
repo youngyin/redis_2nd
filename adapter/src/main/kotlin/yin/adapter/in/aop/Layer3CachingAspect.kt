@@ -10,28 +10,28 @@ import yin.application.port.out.*
 
 @Aspect
 @Component
-class Caching3LayerAspect(
+class Layer3CachingAspect(
     private val caffeineRepositoryPort: CaffeineRepositoryPort,
     private val redisRepositoryPort: RedisRepositoryPort,
     private val cacheKeyGeneratorPort: CacheKeyGeneratorPort,
     private val cacheHitCounterPort: CacheHitCounterPort
 ) {
 
-    private val log = LoggerFactory.getLogger(Caching3LayerAspect::class.java)
+    private val log = LoggerFactory.getLogger(Layer3CachingAspect::class.java)
 
     /**
      * 3계층 캐싱을 위한 Aspect
      * Caffeine → Redis → DB 순으로 조회
      * @param joinPoint ProceedingJoinPoint
-     * @param cached3Layer Cached3Layer
+     * @param layer3Cached Layer3Cached
      * @return Any
      */
-    @Around("@annotation(cached3Layer)")
-    fun cache(joinPoint: ProceedingJoinPoint, cached3Layer: Cached3Layer): Any {
+    @Around("@annotation(layer3Cachedlayer3Cached)")
+    fun cache(joinPoint: ProceedingJoinPoint, layer3Cached: Layer3Cached): Any {
         val methodSignature = joinPoint.signature as MethodSignature
         val method = methodSignature.method
         val returnType = method.returnType
-        val cacheKey = cacheKeyGeneratorPort.generate(joinPoint, cached3Layer.cacheKeyPrefix)
+        val cacheKey = cacheKeyGeneratorPort.generate(joinPoint, layer3Cached.cacheKeyPrefix)
 
         // Step 1. Caffeine 조회
         val caffeineHit = caffeineRepositoryPort.getIfPresent(cacheKey, returnType)
@@ -59,8 +59,8 @@ class Caching3LayerAspect(
 
         // Step 5. Redis 저장 조건 체크
         val hitCount = cacheHitCounterPort.getHitCount(cacheKey)
-        if (hitCount >= cached3Layer.syncThreshold) {
-            redisRepositoryPort.put(cacheKey, result, cached3Layer.ttlSeconds)
+        if (hitCount >= layer3Cached.syncThreshold) {
+            redisRepositoryPort.put(cacheKey, result, layer3Cached.ttlSeconds)
             log.info("📦 Redis PUT [key=$cacheKey] (hitCount=$hitCount)")
         } else {
             log.info("🚫 Redis SKIP [key=$cacheKey] (hitCount=$hitCount)")

@@ -1,9 +1,9 @@
-package yin.application.service.lock
+package yin.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import yin.application.command.ReserveSeatCommand
-import yin.application.port.`in`.Lock.LocalLockReservationUseCase
+import yin.application.port.`in`.LocalLockReservationUseCase
 import yin.application.port.out.ReserveSeatPort
 import yin.domain.Reservation
 import yin.domain.ReservationStatus
@@ -13,7 +13,7 @@ import yin.domain.ReservationStatus
 class LocalLockReservationService(
     private val reserveSeatPort: ReserveSeatPort,
 
-) : LocalLockReservationUseCase{
+) : LocalLockReservationUseCase {
     /**
      * Reserves a seat for a given user and schedule.
      */
