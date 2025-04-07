@@ -84,4 +84,4 @@
       - [invokeAll와 CountDownLatch를 사용한 동시성 제어 테스트](docs/invokeAll_vs_CountDownLatch.md)
 
  ## 4주차
-  - [RateLimit 설계](docs/RateLimit)
+  - [RateLimit 설계, 구현](docs/RateLimit)
