@@ -1,4 +1,4 @@
-package yin.adapter.`in`.request
+package yin.adapter.`in`.controller.request
 
 public data class ReserveSeatRequest(
     val scheduleId: Long,

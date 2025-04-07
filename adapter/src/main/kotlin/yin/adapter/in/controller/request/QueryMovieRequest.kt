@@ -1,4 +1,4 @@
-package yin.adapter.`in`.request
+package yin.adapter.`in`.controller.request
 
 import jakarta.validation.constraints.Size
 import yin.domain.Genre

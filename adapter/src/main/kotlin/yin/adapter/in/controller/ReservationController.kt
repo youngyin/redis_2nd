@@ -1,8 +1,8 @@
-package yin.adapter.`in`
+package yin.adapter.`in`.controller
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import yin.adapter.`in`.request.ReserveSeatRequest
+import yin.adapter.`in`.controller.request.ReserveSeatRequest
 import yin.application.command.ReserveSeatCommand
 import yin.application.port.`in`.ReserveSeatUseCase
 import yin.domain.Reservation
