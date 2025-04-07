@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.RestController
 import yin.adapter.`in`.request.QueryMovieRequest
 import yin.application.command.QueryMovieCommand
 import yin.application.dto.QueryMovieResponse
-import yin.application.port.`in`.CacheMovieUseCase
+import yin.application.port.`in`.QueryMovieUseCase
 
 @RestController
-@RequestMapping("/api/v2/movies")
-class CacheMovieController(
-    private val cacheMovieUseCase: CacheMovieUseCase
+@RequestMapping("/api/v1/movies")
+class MovieController(
+    private val queryMovieUseCase: QueryMovieUseCase
 ) {
 
     /**
-     * 영화 목록 조회 (캐시 O)
+     * 영화 목록 조회 (캐시 X)
      */
     @GetMapping
-    fun getMoviesWithCache(
+    fun getMovies(
         @Validated request: QueryMovieRequest,
         pageable: Pageable
     ): ResponseEntity<Page<QueryMovieResponse>> {
@@ -31,7 +31,7 @@ class CacheMovieController(
             genreList = request.genreList,
             movieStatusList = request.movieStatusList,
         )
-        val findAllMovies = cacheMovieUseCase.findAllMovies(command, pageable)
+        val findAllMovies = queryMovieUseCase.findAllMovies(command, pageable)
         return ResponseEntity.ok().body(findAllMovies)
     }
 }

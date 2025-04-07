@@ -1,17 +1,17 @@
 package yin.adapter.out.persistence
 
-import org.springframework.stereotype.Component
-import yin.application.port.out.ReserveSeatPort
-import yin.domain.Reservation
-import yin.adapter.out.persistence.repository.ReservationRepository
+import org.springframework.stereotype.Repository
 import yin.adapter.out.persistence.entity.ReservationEntity
+import yin.adapter.out.persistence.repository.ReservationRepository
 import yin.adapter.out.persistence.repository.ScheduleRepository
 import yin.adapter.out.persistence.repository.SeatRepository
 import yin.adapter.out.persistence.repository.UserRepository
+import yin.application.port.out.ReserveSeatPort
+import yin.domain.Reservation
 import yin.domain.ReservationStatus
 
-@Component
-class ReserveSeatPersistenceAdapter(
+@Repository
+class ReserveSeatAdapter(
     private val reservationRepository: ReservationRepository,
     private val userRepository: UserRepository,
     private val scheduleRepository: ScheduleRepository,
@@ -27,6 +27,17 @@ class ReserveSeatPersistenceAdapter(
      */
     override fun existsByScheduleIdAndSeatId(scheduleId: Long, seatId: Long): Boolean {
         return reservationRepository.existsByScheduleIdAndSeatId(scheduleId, seatId)
+    }
+
+    /**
+     * Checks if a seat is already reserved for a given schedule.
+     *
+     * @param scheduleId The ID of the schedule.
+     * @param seatId The ID of the seat.
+     * @return True if the seat is reserved, false otherwise.
+     */
+    override fun existsByScheduleIdAndSeatId_Lock(scheduleId: Long, seatId: Long): Boolean {
+        return reservationRepository.findWithLockByScheduleIdAndSeatId(scheduleId, seatId) != null
     }
 
     /**

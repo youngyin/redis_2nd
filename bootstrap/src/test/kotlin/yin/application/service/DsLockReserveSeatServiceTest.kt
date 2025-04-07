@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 import yin.adapter.out.persistence.entity.*
 import yin.adapter.out.persistence.repository.*
 import yin.application.command.ReserveSeatCommand
+import yin.application.service.lock.DsLockReserveSeatService
 import yin.bootstrap.BootstrapApplication
 import yin.domain.Genre
 import yin.domain.MovieStatus
@@ -18,9 +19,9 @@ import java.time.LocalDateTime
 
 @Transactional
 @SpringBootTest(classes = [BootstrapApplication::class])
-class ReserveSeatServiceTest {
+class DsLockReserveSeatServiceTest {
     @Autowired
-    lateinit var reserveSeatService: ReserveSeatService
+    lateinit var dsLockReserveSeatService: DsLockReserveSeatService
 
     @Autowired
     lateinit var userRepository: UserRepository
@@ -88,10 +89,10 @@ class ReserveSeatServiceTest {
         )
 
         // When
-        reserveSeatService.reserve(command)
+        dsLockReserveSeatService.reserve(command)
 
         // Then
-        val reservations = reserveSeatService.getAllReservations(user.id)
+        val reservations = dsLockReserveSeatService.getAllReservations(user.id)
         assertThat(reservations).hasSize(1)
             .extracting(Reservation::seatId, Reservation::scheduleId, Reservation::userId)
             .contains(Tuple.tuple(seat.id, schedule.id, user.id))

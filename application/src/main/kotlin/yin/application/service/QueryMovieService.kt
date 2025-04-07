@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import yin.application.command.QueryMovieCommand
-import yin.application.command.QueryScheduleCommand
 import yin.application.dto.QueryMovieResponse
 import yin.application.port.`in`.QueryMovieUseCase
 import yin.application.port.out.MovieRepositoryPort

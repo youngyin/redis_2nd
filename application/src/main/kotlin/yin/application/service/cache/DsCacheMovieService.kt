@@ -1,4 +1,4 @@
-package yin.application.service
+package yin.application.service.cache
 
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
@@ -7,20 +7,20 @@ import org.springframework.stereotype.Service
 import yin.application.command.QueryMovieCommand
 import yin.application.dto.QueryMovieResponse
 import yin.infrastructure.util.PageUtils.toPage
-import yin.application.port.`in`.CacheMovieUseCase
+import yin.application.port.`in`.cache.DsCacheMovieUseCase
 import yin.application.port.out.*
 
 @Service
-class CacheMovieService(
+class DsCacheMovieService(
     private val movieRepositoryPort: MovieRepositoryPort,
     private val caffeineRepositoryPort: CaffeineRepositoryPort,
     private val redisRepositoryPort: RedisRepositoryPort,
     private val redisSyncPolicy: RedisSyncPolicy,
     private val cacheKeyGeneratorPort: CacheKeyGeneratorPort,
     private val cacheHitCounterPort: CacheHitCounterPort
-) : CacheMovieUseCase {
+) : DsCacheMovieUseCase {
 
-    private val log = LoggerFactory.getLogger(CacheMovieService::class.java)
+    private val log = LoggerFactory.getLogger(DsCacheMovieService::class.java)
 
     /**
      * 영화 목록 조회 (캐시 O)

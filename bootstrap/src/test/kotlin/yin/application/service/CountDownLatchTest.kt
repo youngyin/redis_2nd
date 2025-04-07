@@ -3,10 +3,10 @@ package yin.application.service
 import org.assertj.core.api.Assertions.assertThat
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.transaction.annotation.Transactional
 import yin.adapter.out.persistence.entity.*
 import yin.adapter.out.persistence.repository.*
 import yin.application.command.ReserveSeatCommand
+import yin.application.service.lock.DsLockReserveSeatService
 import yin.bootstrap.BootstrapApplication
 import yin.domain.Genre
 import yin.domain.MovieStatus
@@ -21,7 +21,7 @@ import kotlin.test.Test
 @SpringBootTest(classes = [BootstrapApplication::class])
 class CountDownLatchTest {
     @Autowired
-    lateinit var reserveSeatService: ReserveSeatService
+    lateinit var dsLockReserveSeatService: DsLockReserveSeatService
 
     @Autowired
     lateinit var userRepository: UserRepository
@@ -62,7 +62,7 @@ class CountDownLatchTest {
                 latch.await() // 대기하다가
                 try {
                     transactionExecutor.execute {
-                        reserveSeatService.reserve(command)
+                        dsLockReserveSeatService.reserve(command)
                         successCount.incrementAndGet()
                     }
                 } catch (e: Exception) {

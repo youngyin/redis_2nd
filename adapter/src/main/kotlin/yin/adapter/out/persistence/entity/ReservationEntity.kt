@@ -20,4 +20,7 @@ open class ReservationEntity(
 
     @Enumerated(EnumType.STRING)
     var status: ReservationStatus,
+
+    @Version
+    var version: Long = 0,
 ) : BaseTimeEntity()
