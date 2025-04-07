@@ -84,7 +84,4 @@
       - [invokeAll와 CountDownLatch를 사용한 동시성 제어 테스트](docs/invokeAll_vs_CountDownLatch.md)
 
  ## 4주차
-  - RateLimit 구현
-  - 
-(추가 구현사항)
-  - [Redis Pub/Sub을 활용한 실시간 알림 시스템 구현](docs/redis-pubsub.md)
+  - [RateLimit 설계](docs/RateLimit)
