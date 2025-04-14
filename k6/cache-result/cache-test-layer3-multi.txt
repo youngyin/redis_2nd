@@ -1,0 +1,40 @@
+
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: cache-test-layer3-multi.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 10 max VUs, 50s max duration (incl. graceful stop):
+              * default: 10 looping VUs for 20s (gracefulStop: 30s)
+
+
+     ✓ http://localhost:8081 응답 200
+     ✓ http://localhost:8082 응답 200
+
+     checks.........................: 100.00% 180 out of 180
+     data_received..................: 80 kB   4.0 kB/s
+     data_sent......................: 20 kB   995 B/s
+     http_req_blocked...............: avg=201.96µs min=2µs    med=7µs     max=5.56ms   p(90)=245.5µs  p(95)=2.08ms
+     http_req_connecting............: avg=53.51µs  min=0s     med=0s      max=1.65ms   p(90)=156.3µs  p(95)=389.2µs
+     http_req_duration..............: avg=113.24ms min=6.48ms med=15.21ms max=973.27ms p(90)=833.46ms p(95)=972.27ms
+       { expected_response:true }...: avg=113.24ms min=6.48ms med=15.21ms max=973.27ms p(90)=833.46ms p(95)=972.27ms
+     http_req_failed................: 0.00%   0 out of 180
+     http_req_receiving.............: avg=512.13µs min=10µs   med=162µs   max=3.56ms   p(90)=1.68ms   p(95)=2.68ms
+     http_req_sending...............: avg=67.66µs  min=3µs    med=17µs    max=5.1ms    p(90)=62µs     p(95)=137µs
+     http_req_tls_handshaking.......: avg=0s       min=0s     med=0s      max=0s       p(90)=0s       p(95)=0s
+     http_req_waiting...............: avg=112.66ms min=5.52ms med=14.86ms max=970.94ms p(90)=830.65ms p(95)=969.48ms
+     http_reqs......................: 180     8.963843/s
+     iteration_duration.............: avg=1.11s    min=1s     med=1.01s   max=1.98s    p(90)=1.83s    p(95)=1.97s
+     iterations.....................: 180     8.963843/s
+     vus............................: 10      min=10         max=10
+     vus_max........................: 10      min=10         max=10
+
+
+running (20.1s), 00/10 VUs, 180 complete and 0 interrupted iterations
+default ✓ [======================================] 10 VUs  20s

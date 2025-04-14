@@ -33,15 +33,14 @@ class MovieController(
     }
 
     /**
-     * 영화 목록 조회 (캐시 O)
+     * 영화 목록 조회 (로컬 캐시 O)
      */
-    @Layer3Cached(
+    @LocalCached(
         cacheKeyPrefix = "movie",
         ttlSeconds = 300,
-        syncThreshold = 5  // Redis로 승격할 최소 hit count
     )
     @GetMapping("/v2/movies")
-    fun getMoviesDsCache(
+    fun getMoviesLocalCache(
         @Validated request: QueryMovieRequest,
         pageable: Pageable
     ): ResponseEntity<Page<QueryMovieResponse>> {
@@ -49,14 +48,15 @@ class MovieController(
     }
 
     /**
-     * 영화 목록 조회 (캐시 O)
+     * 영화 목록 조회 (분산 캐시 O)
      */
-    @LocalCached(
+    @Layer3Cached(
         cacheKeyPrefix = "movie",
         ttlSeconds = 300,
+        syncThreshold = 5  // Redis로 승격할 최소 hit count
     )
     @GetMapping("/v3/movies")
-    fun getMoviesLocalCache(
+    fun getMoviesDsCache(
         @Validated request: QueryMovieRequest,
         pageable: Pageable
     ): ResponseEntity<Page<QueryMovieResponse>> {
