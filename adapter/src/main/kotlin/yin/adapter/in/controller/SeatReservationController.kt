@@ -31,7 +31,7 @@ class SeatReservationController(
      * Handles the reservation of a seat for a given schedule.
      * - Local lock is applied.
      */
-    @PostMapping("/api/v3/reservations")
+    @PostMapping("/api/v2/reservations")
     fun reserveSeatLocalLock(
         @RequestHeader("X-USER-ID") userId: Long,
         @RequestBody request: ReserveSeatRequest

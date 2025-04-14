@@ -26,7 +26,7 @@ class Layer3CachingAspect(
      * @param layer3Cached Layer3Cached
      * @return Any
      */
-    @Around("@annotation(layer3Cachedlayer3Cached)")
+    @Around("@annotation(layer3Cached)")
     fun cache(joinPoint: ProceedingJoinPoint, layer3Cached: Layer3Cached): Any {
         val methodSignature = joinPoint.signature as MethodSignature
         val method = methodSignature.method
