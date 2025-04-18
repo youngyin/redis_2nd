@@ -4,5 +4,6 @@ package yin.adapter.`in`.aop
 @Retention(AnnotationRetention.RUNTIME)
 annotation class DistributedLock(
     val key: String, // 예: "#seatId"
-    val waitTimeSeconds: Long = 3,
+    val waitTimeSeconds: Long = 5,
+    val timeoutSeconds: Long = 30
 )

@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 import yin.application.command.ReserveSeatCommand
 import yin.application.port.`in`.LocalLockReservationUseCase
 import yin.application.port.out.ReserveSeatPort
+import yin.application.port.out.SeatRepositoryPort
 import yin.domain.Reservation
 import yin.domain.ReservationStatus
 
@@ -12,6 +13,7 @@ import yin.domain.ReservationStatus
 @Service
 class LocalLockReservationService(
     private val reserveSeatPort: ReserveSeatPort,
+    private val seatRepository: SeatRepositoryPort
 
 ) : LocalLockReservationUseCase {
     /**
@@ -19,7 +21,10 @@ class LocalLockReservationService(
      */
     @Transactional
     override fun reserve(command: ReserveSeatCommand): Reservation {
-        if (reserveSeatPort.existsByScheduleIdAndSeatId_Lock(command.scheduleId, command.seatId)) {
+        val seat = seatRepository.findByIdWithLock(command.seatId)
+        val alreadyReserved = reserveSeatPort.existsByScheduleIdAndSeatId(command.scheduleId, command.seatId)
+
+        if (alreadyReserved) {
             throw IllegalStateException("이미 예약된 좌석입니다.")
         }
 

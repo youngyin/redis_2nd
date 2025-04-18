@@ -20,7 +20,7 @@ import kotlin.test.Test
 @SpringBootTest(classes = [BootstrapApplication::class])
 class CountDownLatchTest {
     @Autowired
-    lateinit var dsLockReserveSeatService: DsLockReserveSeatService
+    lateinit var localLockReservationService: LocalLockReservationService
 
     @Autowired
     lateinit var userRepository: UserRepository
@@ -61,7 +61,7 @@ class CountDownLatchTest {
                 latch.await() // 대기하다가
                 try {
                     transactionExecutor.execute {
-                        dsLockReserveSeatService.reserve(command)
+                        localLockReservationService.reserve(command)
                         successCount.incrementAndGet()
                     }
                 } catch (e: Exception) {

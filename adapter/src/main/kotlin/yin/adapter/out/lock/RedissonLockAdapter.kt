@@ -1,4 +1,4 @@
-package yin.adapter.out.cache
+package yin.adapter.out.lock
 
 import lombok.extern.slf4j.Slf4j
 import org.redisson.api.RedissonClient
@@ -17,11 +17,11 @@ class RedissonLockAdapter(
     /**
      * Executes a given action with a distributed lock.
      */
-    override fun <T> runWithLock(key: String, timeoutSec: Long, action: () -> T): T {
+    override fun <T> runWithLock(key: String, waitSec: Long, timeoutSec: Long, action: () -> T): T {
         val logId = UUID.randomUUID().toString()
         val lock = redissonClient.getLock(key)
         log.info("[$logId] 락 시도 - key: $key, timeout: ${timeoutSec}s")
-        val locked = lock.tryLock(timeoutSec, 5, TimeUnit.SECONDS) // leaseTime 증가
+        val locked = lock.tryLock(waitSec, timeoutSec, TimeUnit.SECONDS) // leaseTime 증가
 
         if (!locked) {
             log.error("[$logId] 락 획득 실패 - key: $key, timeout: ${timeoutSec}s")

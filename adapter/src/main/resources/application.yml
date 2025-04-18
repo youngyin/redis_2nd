@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: adapter
+
+logging:
+    level:
+        org.hibernate.SQL: DEBUG
+        org.hibernate.type.descriptor.sql: TRACE
+        org.hibernate.loader.Loader: TRACE
+        org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: DEBUG
+        org.springframework.orm.jpa: DEBUG

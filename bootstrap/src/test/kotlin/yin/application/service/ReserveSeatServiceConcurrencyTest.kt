@@ -18,10 +18,10 @@ import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 
 @SpringBootTest(classes = [BootstrapApplication::class])
-class DsLockReserveSeatServiceConcurrencyTest {
+class ReserveSeatServiceConcurrencyTest {
 
  @Autowired
- lateinit var dsLockReserveSeatService: DsLockReserveSeatService
+ lateinit var localLockReservationService: LocalLockReservationService
 
  @Autowired
  lateinit var userRepository: UserRepository
@@ -49,7 +49,7 @@ class DsLockReserveSeatServiceConcurrencyTest {
   // Given
   val users = (1..100).map { saveUserEntity() }
   val theater = theaterRepository.save(TheaterEntity(name = "테스트 극장", totalSeats = 100))
-  val seat = seatRepository.save(SeatEntity(theater = theater, seatRow = "A", seatNumber = 1))
+  val seat = seatRepository.save(SeatEntity(theater = theater, seatRow = "B", seatNumber = 1))
   val movie = saveMovieEntity()
   val schedule = saveScheduleEntity(movie, theater)
 
@@ -68,7 +68,7 @@ class DsLockReserveSeatServiceConcurrencyTest {
    Callable {
     try {
      transactionExecutor.execute {
-      dsLockReserveSeatService.reserve(command)
+      localLockReservationService.reserve(command)
       successCount.incrementAndGet()
      }
     } catch (e: Exception) {

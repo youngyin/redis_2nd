@@ -1,0 +1,39 @@
+
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: reservation-redisson-test.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 100 max VUs, 35s max duration (incl. graceful stop):
+              * default: 100 looping VUs for 5s (gracefulStop: 30s)
+
+
+     ✗ 응답 코드가 200 또는 409인지
+      ↳  0% — ✓ 1 / ✗ 424
+
+     checks.........................: 0.23%  1 out of 425
+     data_received..................: 112 kB 16 kB/s
+     data_sent......................: 87 kB  13 kB/s
+     http_req_blocked...............: avg=751.92µs min=4µs     med=264µs   max=3.69ms  p(90)=2.35ms  p(95)=2.74ms
+     http_req_connecting............: avg=629.86µs min=0s      med=206µs   max=2.63ms  p(90)=2.07ms  p(95)=2.19ms
+     http_req_duration..............: avg=1.4s     min=7.92ms  med=1.78s   max=3.89s   p(90)=2.76s   p(95)=3.03s
+       { expected_response:true }...: avg=112.2ms  min=112.2ms med=112.2ms max=112.2ms p(90)=112.2ms p(95)=112.2ms
+     http_req_failed................: 99.76% 424 out of 425
+     http_req_receiving.............: avg=775.68µs min=32µs    med=250µs   max=22.03ms p(90)=1.38ms  p(95)=2.43ms
+     http_req_sending...............: avg=53.88µs  min=6µs     med=29µs    max=466µs   p(90)=103.6µs p(95)=159.59µs
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s      max=0s      p(90)=0s      p(95)=0s
+     http_req_waiting...............: avg=1.4s     min=7.77ms  med=1.78s   max=3.89s   p(90)=2.76s   p(95)=3.03s
+     http_reqs......................: 425    61.393012/s
+     iteration_duration.............: avg=1.4s     min=8.22ms  med=1.78s   max=3.89s   p(90)=2.76s   p(95)=3.03s
+     iterations.....................: 425    61.393012/s
+     vus............................: 48     min=48         max=100
+     vus_max........................: 100    min=100        max=100
+
+
+running (06.9s), 000/100 VUs, 425 complete and 0 interrupted iterations

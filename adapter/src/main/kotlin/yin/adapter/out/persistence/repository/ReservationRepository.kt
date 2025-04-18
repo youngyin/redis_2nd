@@ -11,10 +11,10 @@ interface ReservationRepository : JpaRepository<ReservationEntity, Long> {
     fun findAllByUserId(userId: Long): List<ReservationEntity>
     fun existsByScheduleIdAndSeatId(scheduleId: Long, seatId: Long): Boolean
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT r FROM ReservationEntity r WHERE r.schedule.id = :scheduleId AND r.seat.id = :seatId")
-    fun findWithLockByScheduleIdAndSeatId(
-        @Param("scheduleId") scheduleId: Long,
-        @Param("seatId") seatId: Long
-    ): ReservationEntity?
+//    @Lock(LockModeType.PESSIMISTIC_WRITE)
+//    @Query("SELECT r FROM ReservationEntity r WHERE r.schedule.id = :scheduleId AND r.seat.id = :seatId")
+//    fun findWithLockByScheduleIdAndSeatId(
+//        @Param("scheduleId") scheduleId: Long,
+//        @Param("seatId") seatId: Long
+//    ): ReservationEntity?
 }

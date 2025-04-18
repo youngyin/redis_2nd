@@ -31,7 +31,8 @@ class DistributedLockAspect(
 
         return lockPort.runWithLock(
             key = key,
-            timeoutSec = distributedLock.waitTimeSeconds,
+            waitSec = distributedLock.waitTimeSeconds,
+            timeoutSec = distributedLock.timeoutSeconds,
         ) {
             joinPoint.proceed()
         }

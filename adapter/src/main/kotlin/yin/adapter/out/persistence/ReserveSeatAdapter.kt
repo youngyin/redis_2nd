@@ -36,9 +36,9 @@ class ReserveSeatAdapter(
      * @param seatId The ID of the seat.
      * @return True if the seat is reserved, false otherwise.
      */
-    override fun existsByScheduleIdAndSeatId_Lock(scheduleId: Long, seatId: Long): Boolean {
-        return reservationRepository.findWithLockByScheduleIdAndSeatId(scheduleId, seatId) != null
-    }
+//    override fun existsByScheduleIdAndSeatId_Lock(scheduleId: Long, seatId: Long): Boolean {
+//        return reservationRepository.findWithLockByScheduleIdAndSeatId(scheduleId, seatId) != null
+//    }
 
     /**
      * Reserves a seat for a given user and schedule.
@@ -47,12 +47,12 @@ class ReserveSeatAdapter(
      * @return The reserved seat information.
      */
     override fun reserveSeat(reservation: Reservation): Reservation {
-        val userEntity = userRepository.findById(reservation.userId)
-            .orElseThrow({ IllegalArgumentException("User not found") })
-        val scheduleEntity = scheduleRepository.findById(reservation.scheduleId)
-            .orElseThrow({ IllegalArgumentException("Schedule not found") })
-        val seatEntity = seatRepository.findById(reservation.seatId)
-            .orElseThrow { IllegalArgumentException("Seat ${reservation.seatId} not found") }
+        val userEntity = userRepository.findById(reservation.userId).orElse(null)
+            ?: throw IllegalArgumentException("User ${reservation.userId} not found")
+        val scheduleEntity = scheduleRepository.findById(reservation.scheduleId).orElse(null)
+            ?: throw IllegalArgumentException("Schedule ${reservation.scheduleId} not found")
+        val seatEntity = seatRepository.findById(reservation.seatId).orElse(null)
+            ?: throw IllegalArgumentException("Seat ${reservation.seatId} not found")
 
         val saved = reservationRepository.save(
             ReservationEntity(
