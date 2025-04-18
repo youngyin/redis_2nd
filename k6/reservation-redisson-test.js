@@ -3,14 +3,14 @@ import { check } from 'k6';
 
 export const options = {
     vus: 100,
-    duration: '5s',
+    iterations: 100, // 각 VU가 1회만 요청
 };
+
 
 const scheduleId = 304897;
 const seatId = 200001;
 const theaterId = 137001;
 const endpoints = [
-    `http://localhost:8082/api/v3/reservations`,
     `http://localhost:8081/api/v3/reservations`,
     `http://localhost:8080/api/v3/reservations`,
 ];

@@ -3,7 +3,6 @@ package yin.adapter.`in`.controller
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
-import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import yin.adapter.`in`.aop.DistributedLock
 import yin.adapter.`in`.controller.request.ReserveSeatRequest
@@ -53,7 +52,6 @@ class SeatReservationController(
      * Handles the reservation of a seat for a given schedule.
      * - Distributed lock is applied.
      */
-    @Transactional
     @DistributedLock(
         key = "#request.seatId",
         waitTimeSeconds = 10,

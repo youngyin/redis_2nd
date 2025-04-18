@@ -34,7 +34,14 @@ class DistributedLockAspect(
             waitSec = distributedLock.waitTimeSeconds,
             timeoutSec = distributedLock.timeoutSeconds,
         ) {
-            joinPoint.proceed()
+            try {
+                joinPoint.proceed()
+            } catch (e: Throwable) {
+                logger.error("🔒 [LOCK] 실행 중 예외 발생 - key=$key", e)
+                throw e
+            } finally {
+                logger.info("🔒 [UNLOCK] Release: $key")
+            }
         }
     }
 
