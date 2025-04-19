@@ -1,0 +1,65 @@
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: movie-ratelimit.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 1m30s max duration (incl. graceful stop):
+              * default: 1 looping VUs for 1m0s (gracefulStop: 30s)
+
+INFO[0000] 200                                           source=console
+INFO[0002] 200                                           source=console
+INFO[0004] 200                                           source=console
+INFO[0006] 200                                           source=console
+INFO[0008] 200                                           source=console
+INFO[0010] 200                                           source=console
+INFO[0012] 200                                           source=console
+INFO[0014] 200                                           source=console
+INFO[0016] 200                                           source=console
+INFO[0018] 200                                           source=console
+INFO[0020] 200                                           source=console
+INFO[0022] 200                                           source=console
+INFO[0024] 200                                           source=console
+INFO[0026] 200                                           source=console
+INFO[0028] 200                                           source=console
+INFO[0030] 200                                           source=console
+INFO[0032] 200                                           source=console
+INFO[0034] 200                                           source=console
+INFO[0036] 200                                           source=console
+INFO[0038] 200                                           source=console
+INFO[0040] 429                                           source=console
+INFO[0042] 429                                           source=console
+INFO[0044] 429                                           source=console
+INFO[0046] 429                                           source=console
+INFO[0048] 429                                           source=console
+INFO[0050] 429                                           source=console
+INFO[0052] 429                                           source=console
+INFO[0054] 429                                           source=console
+INFO[0056] 429                                           source=console
+INFO[0058] 429                                           source=console
+
+     data_received..................: 176 kB 2.9 kB/s
+     data_sent......................: 2.8 kB 46 B/s
+     http_req_blocked...............: avg=52.93µs  min=4µs     med=12µs    max=1.13ms  p(90)=21.8µs  p(95)=82.34µs
+     http_req_connecting............: avg=6.36µs   min=0s      med=0s      max=191µs   p(90)=0s      p(95)=0s
+     http_req_duration..............: avg=21ms     min=4.97ms  med=24.09ms max=59.5ms  p(90)=32.33ms p(95)=33.83ms
+       { expected_response:true }...: avg=27.57ms  min=13.55ms med=27.38ms max=59.5ms  p(90)=32.63ms p(95)=36.25ms
+     http_req_failed................: 33.33% 10 out of 30
+     http_req_receiving.............: avg=562.06µs min=271µs   med=507µs   max=1.69ms  p(90)=746.1µs p(95)=886.4µs
+     http_req_sending...............: avg=57.23µs  min=14µs    med=38µs    max=525µs   p(90)=64.6µs  p(95)=101.19µs
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s      max=0s      p(90)=0s      p(95)=0s
+     http_req_waiting...............: avg=20.38ms  min=4.68ms  med=23.36ms max=58.24ms p(90)=31.65ms p(95)=33.33ms
+     http_reqs......................: 30     0.49443/s
+     iteration_duration.............: avg=2.02s    min=2s      med=2.02s   max=2.06s   p(90)=2.03s   p(95)=2.03s
+     iterations.....................: 30     0.49443/s
+     vus............................: 1      min=1        max=1
+     vus_max........................: 1      min=1        max=1
+
+
+running (1m00.7s), 0/1 VUs, 30 complete and 0 interrupted iterations
+default ✓ [======================================] 1 VUs  1m0s

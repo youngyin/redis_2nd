@@ -13,7 +13,9 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	// redis
-	implementation("org.redisson:redisson-spring-boot-starter:3.25.2")
+	implementation("org.redisson:redisson-spring-boot-starter:3.45.1")
+	implementation("org.redisson:redisson:3.45.1")
+
 }
 
 tasks.bootJar {

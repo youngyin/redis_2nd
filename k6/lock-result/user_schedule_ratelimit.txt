@@ -1,0 +1,38 @@
+
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/
+
+     execution: local
+        script: user_schedule_ratelimit.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 10m30s max duration (incl. graceful stop):
+              * default: 1 iterations for each of 1 VUs (maxDuration: 10m0s, gracefulStop: 30s)
+
+INFO[0000] 응답 코드: 200                                    source=console
+INFO[0005] 응답 코드: 429                                    source=console
+INFO[0010] 응답 코드: 429                                    source=console
+
+     data_received..................: 681 B  45 B/s
+     data_sent......................: 612 B  41 B/s
+     http_req_blocked...............: avg=341.33µs min=10µs    med=22µs    max=992µs   p(90)=798µs   p(95)=894.99µs
+     http_req_connecting............: avg=54µs     min=0s      med=0s      max=162µs   p(90)=129.6µs p(95)=145.79µs
+     http_req_duration..............: avg=24.29ms  min=7.8ms   med=9.89ms  max=55.18ms p(90)=46.12ms p(95)=50.65ms
+       { expected_response:true }...: avg=55.18ms  min=55.18ms med=55.18ms max=55.18ms p(90)=55.18ms p(95)=55.18ms
+     http_req_failed................: 66.66% 2 out of 3
+     http_req_receiving.............: avg=672.66µs min=666µs   med=672µs   max=680µs   p(90)=678.4µs p(95)=679.2µs
+     http_req_sending...............: avg=177µs    min=49µs    med=95µs    max=387µs   p(90)=328.6µs p(95)=357.8µs
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s      max=0s      p(90)=0s      p(95)=0s
+     http_req_waiting...............: avg=23.44ms  min=7.09ms  med=9.12ms  max=54.11ms p(90)=45.12ms p(95)=49.61ms
+     http_reqs......................: 3      0.198914/s
+     iteration_duration.............: avg=15.08s   min=15.08s  med=15.08s  max=15.08s  p(90)=15.08s  p(95)=15.08s
+     iterations.....................: 1      0.066305/s
+     vus............................: 1      min=1      max=1
+     vus_max........................: 1      min=1      max=1
+
+
+running (00m15.1s), 0/1 VUs, 1 complete and 0 interrupted iterations
+default ✓ [======================================] 1 VUs  00m15.1s/10m0s  1/1 iters, 1 per VU

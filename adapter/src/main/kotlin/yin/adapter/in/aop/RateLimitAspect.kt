@@ -17,6 +17,8 @@ class RateLimitAspect(
     @Around("@annotation(rateLimited)")
     fun checkRateLimit(joinPoint: ProceedingJoinPoint, rateLimited: RateLimited): Any {
         val ip = extractClientIp(httpServletRequest)
+
+        println("[checkRateLimit] IP: $ip")
         rateLimitPort.checkIpRequestLimit(ip)
         return joinPoint.proceed()
     }
